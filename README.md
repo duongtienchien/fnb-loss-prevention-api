@@ -38,7 +38,7 @@ CoffeeShop.Solution/
 │   └── CoffeeShop.Models/   # Lớp Thực Thể (Entities: Auth, Catalog, Sales, System)
 │
 ├── Testing & Tools
-│   └── RaceConditionTester/ # Tool test tương tranh (Dùng để kiểm chứng cơ chế Khóa lạc quan – Optimistic Locking)
+│   └── RaceConditionTester/ # Công cụ mô phỏng 10 concurrent requests (Task.WhenAll) nhằm kiểm thử tải và phát hiện xung đột dữ liệu (Lost Update) trong luồng đặt hàng.
 │
 ├── CoffeeShop.sln           # Visual Studio Solution file
 └── README.md                # Project documentation
