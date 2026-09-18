@@ -1,4 +1,4 @@
-# CoffeeShop API - Kiến Trúc 3-Tier
+# F&B Loss Prevention & Chain Management API
 
 ![.NET](https://img.shields.io/badge/.NET-5C2D91?style=for-the-badge&logo=.net&logoColor=white)
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
