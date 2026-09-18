@@ -10,6 +10,16 @@ CoffeeShop API là hệ thống RESTful API hiệu năng cao và có khả năng
 
 Hệ thống được thiết kế chặt chẽ theo Kiến trúc phân tầng (N-Tier Architecture), đảm bảo tách biệt rõ ràng các tầng trách nhiệm (Separation of Concerns), tối ưu khả năng bảo trì và sẵn sàng cho việc mở rộng quy mô.
 
+### 🗄️ Kiến Trúc Database Và Đặc Tả
+
+<p align="center">
+  <a href="database-erd.png" target="_blank">
+    <img src="database-erd.png" alt="Database ERD" width="850"/>
+  </a>
+  <br>
+  <em>(Nhấp vào ảnh để xem chi tiết ở độ phân giải gốc)</em>
+</p>
+
 ## Tính Năng
 * ** Kiến Trúc 3-Tier:** Phân tách các tầng như Presentation (API), BLL (Business Logic Layer) và DAL (Data Access Layer).
 * ** Xác thực & Phân quyền:** Cơ chế bảo mật bằng JWT (JSON Web Token) kết hợp kiểm soát truy cập dựa trên vai trò (RBAC).
