@@ -6,7 +6,7 @@
 ![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens)
 
 ## Tổng Quan
-CoffeeShop API là hệ thống RESTful API hiệu năng cao và có khả năng mở rộng tốt, được xây dựng để phục vụ vận hành chuỗi quán cà phê. Được phát triển trên nền tảng .NET Core và C#.
+F&B Loss Prevention API (CoffeeShop) là hệ thống RESTful API hiệu năng cao và có khả năng mở rộng tốt, được xây dựng để phục vụ vận hành chuỗi quán cà phê. Được phát triển trên nền tảng .NET Core và C#.
 
 Hệ thống được thiết kế chặt chẽ theo Kiến trúc phân tầng (N-Tier Architecture), đảm bảo tách biệt rõ ràng các tầng trách nhiệm (Separation of Concerns), tối ưu khả năng bảo trì và sẵn sàng cho việc mở rộng quy mô.
 
@@ -21,16 +21,17 @@ Hệ thống được thiết kế chặt chẽ theo Kiến trúc phân tầng (
 </p>
 
 ## Tính Năng
-* ** Kiến Trúc 3-Tier:** Phân tách các tầng như Presentation (API), BLL (Business Logic Layer) và DAL (Data Access Layer).
-* ** Xác thực & Phân quyền:** Cơ chế bảo mật bằng JWT (JSON Web Token) kết hợp kiểm soát truy cập dựa trên vai trò (RBAC).
-* ** Tăng cường bảo mật:** Tích hợp Rate Limiting chống tấn công Brute-force cùng cơ chế xử lý ngoại lệ tập trung chặt chẽ
-* ** Quản trị cơ sở dữ liệu:** Áp dụng Entity Framework Core theo hướng Code-First kết hợp hệ quản trị cơ sở dữ liệu PostgreSQL.
-* ** Dependency Injection:** Vận dụng triệt để DI nhằm giảm độ phụ thuộc (loose coupling) giữa các Repositories và Services.
-* ** Xử lý nghiệp vụ:** Hoàn thiện luồng xử lý đơn hàng, quản trị người dùng và quản lý kho nguyên liệu thông qua các DTO tùy biến.
+Quản lý Định lượng pha chế (Bill of Materials - BOM): Tự động bóc tách và khấu trừ nguyên liệu thô theo công thức khi xuất bán đồ uống; hỗ trợ topping/món phụ linh hoạt qua cấu trúc self-referencing.
+
+Sổ cái biến động kho bất biến (Append-only Inventory Ledger): Mọi thao tác nhập hàng, hao hụt, bán lẻ đều được ghi nhận dạng lịch sử bất biến (InventoryTransactions), hỗ trợ đối soát sai lệch kiểm kê kho định kỳ.
+
+Cơ chế Cảnh báo gian lận (Loss Prevention & Anti-Fraud): Tự động gắn cờ (IsFraudWarning) đối với các đơn hàng bị hủy bất thường sau khi đã pha chế, ghi nhận nguyên nhân hủy và thời gian hủy để phục vụ thanh tra.
+
+Đối soát kết ca (Z-Report & Cash Reconciliation): Tự động đối soát giữa doanh thu tiền mặt tính toán trên hệ thống và số tiền thực tế bàn giao tại quầy (ShiftReports), cô lập chênh lệch thất thoát theo từng nhân viên.
 
 ##  Tech Stack
 * **Framework:** .NET (C#)
-* **Database:** PostgreSQL
+* **Database:** PostgreSQL (Neon Cloud Serverless)
 * **ORM:** Entity Framework Core
 * **Authentication:** JSON Web Token (JWT)
 * **API Documentation:** Swagger / OpenAPI
@@ -53,11 +54,6 @@ CoffeeShop.Solution/
 ├── CoffeeShop.sln           # Visual Studio Solution file
 └── README.md                # Project documentation
 ```
-
-## Công Nghệ Sử Dụng (Tech Stack)
-* **Backend:** .NET 8 (C# RESTful API), Entity Framework Core.
-* **Database:** PostgreSQL (Neon Cloud Serverless).
-* **Frontend:** Vite, TailwindCSS.
 
 ## Hướng Dẫn Khởi Chạy (Getting Started)
 
@@ -102,6 +98,15 @@ Hệ thống đã nạp sẵn các tài khoản phân quyền mẫu phục vụ 
 | **Staff (Nhân viên)** | `staff1.dd@coffeeshop.com` | `Staff@123` | Đống Đa |
 
 ---
+### 🧪 Kiểm Thử Xung Đột Dữ Liệu (Concurrency Stress Testing)
+Dự án tích hợp sẵn CLI tool giả lập tình huống 10 thu ngân cùng bấm thanh toán món hàng cuối cùng trong kho tại cùng một thời điểm:
+
+```bash
+cd RaceConditionTester
+dotnet run
+```
+
+Mục đích: Mô phỏng xung đột dữ liệu (Lost Update) và kiểm tra tính toàn vẹn của tồn kho nguyên liệu dưới tải tương tranh cao.
 
 ## Tác Giả (Author)
 
