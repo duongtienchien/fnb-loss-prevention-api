@@ -2,15 +2,13 @@
 using System.Net.Http.Json;
 using System.Text.Json.Nodes; 
 
-// 1. Khởi tạo súng cối
 using var httpClient = new HttpClient();
 
 Console.WriteLine("Đang đi xin thẻ ngành (Token)...");
 
-// Tạo payload chứa tài khoản thật 
 var loginPayload = new 
 { 
-    Email = "staff1.cg@coffeeshop.com", // Sửa lại đúng tài khoản của đệ
+    Email = "staff1.cg@coffeeshop.com", // Sửa lại đúng tài khoản
     Password = "Staff@123"                        // Sửa lại đúng mật khẩu
 };
 
@@ -38,10 +36,8 @@ if (string.IsNullOrEmpty(token))
 
 Console.WriteLine("Lấy Token thành công! Lên đạn...");
 
-// Để ở đây là chuẩn nhất
 httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-// KHAI BÁO ĐỊA CHỈ MỤC TIÊU VÀO ĐÂY 
 string apiUrl = "http://localhost:5059/api/Order/order"; 
 
 var tasks = new List<Task<HttpResponseMessage>>();
@@ -72,14 +68,17 @@ for (int i = 0; i < 10; i++)
 // 4. BÓP CÒ! (Task.WhenAll sẽ bung toàn bộ lực lượng lao đi cùng 1 phần nghìn giây)
 var responses = await Task.WhenAll(tasks);
 
-// 5. Ra chiến trường nhặt xác
 int successCount = 0;
 int failCount = 0;
 
 foreach (var res in responses)
 {
     if (res.IsSuccessStatusCode) successCount++;
-    else failCount++;
+    else 
+    {
+        failCount++;
+        Console.WriteLine($"[Lỗi {(int)res.StatusCode}] {res.ReasonPhrase}");
+    }
 }
 
 Console.WriteLine($"Kết quả: Thành công = {successCount} đơn | Thất bại = {failCount} đơn");
